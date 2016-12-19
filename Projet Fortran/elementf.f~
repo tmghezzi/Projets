@@ -1,0 +1,176 @@
+      PROGRAM  PRINCIPAL
+      IMPLICIT NONE
+      INTEGER I,J,K,N,M,NBP,BI,TYPEPROB
+
+      REAL VECTEURX(1000),VECTEURY(1000),X(3),Y(3),AIJ(6),
+     B VECTEUR_STOCKAGE(1000),VECTEUR_SECONDMEMBRE(1000),
+     C FJ(3),CONDNEWMAN(4),VECTEUR_SECONDA(1000),
+     L VECTEURCHOLESKY(1000),VECTEURSOL(1000)
+     
+
+      INTEGER VECTEUR_TRIANGLE(1000),VECTEUR_BOUND(1000),
+     A     VECTEUR_B1(100),VECTEUR_B2(100),
+     C     VECTEUR_B3(100),VECTEUR_B4(100),
+     B     VECTEUR_MIN(1000),SIZEMAX,VECTEUR_DIAGONAL(1000),FUNC
+C     /********************* INIT VARIABLE *****************/
+      N=4
+      M=4
+      NBP = 1
+      FUNC = -4
+
+      WRITE(*,*) 'Nombre de subdivision sur x ?'
+      READ(*,*) N
+      WRITE(*,*) 'Nombre de subdivision sur Y ?'
+      READ(*,*) M
+      WRITE(*,*) 'Type de probléme:'
+      READ(*,*) TYPEPROB
+      
+      WRITE(*,*) 'Nombre de subdivision x :',N
+      WRITE(*,*) 'Nombre de subdivision y :',M
+      WRITE(*,*) 'Probleme type:',TYPEPROB
+      IF(TYPEPROB.EQ.1) THEN
+      CONDNEWMAN(1) = 0
+      CONDNEWMAN(2) = 1.0
+      CONDNEWMAN(3) = 1.0
+      CONDNEWMAN(4) = 0
+      ELSE IF(TYPEPROB.EQ.2) THEN
+      CONDNEWMAN(1) = 0
+      CONDNEWMAN(2) = 40.0
+      CONDNEWMAN(3) = 20.0
+      CONDNEWMAN(4) = 0
+      ENDIF
+
+      DO 1 J=0,M
+      DO 2 I=0,N
+      VECTEURX(NBP)=(20.0*I)/N
+      VECTEURY(NBP)=(10.0*J)/M      
+      WRITE(*,*) 'Node: ',VECTEURX(NBP),VECTEURY(NBP)
+      NBP=NBP+1
+2     CONTINUE
+1     CONTINUE
+
+      WRITE(*,*) '/---------------TRIANGLE NODES-----------------/'
+      CALL GETNODE(N,M,VECTEUR_TRIANGLE)
+      
+      WRITE(*,*) ''
+      
+      WRITE(*,*) '/--------------BOUNDARY NODES----------------/'
+      CALL GETBOUNDNODE(N,M,VECTEUR_B1,VECTEUR_B2,VECTEUR_B3,
+     A VECTEUR_B4)
+      DO 3 BI=1,2*(M+N+2)
+      write(*,*) 'B1 ',BI,':',VECTEUR_B1(BI)
+3     CONTINUE
+
+
+      WRITE(*,*) '/----------------MIN MATRICE------------------/'
+C     /************* GET MIN No Nul MATRICE ***********/
+      CALL GETVECTEURMIN(N,M,VECTEUR_MIN)
+      DO 9 I=1,(N+1)*(M+1)
+      WRITE(*,*) 'VECTEUR_MIN ',I,': ',VECTEUR_MIN(I) 
+9     CONTINUE  
+C     /************* END :: GET MIN ***********/
+
+      WRITE(*,*) ''
+      WRITE(*,*) '/--------------POSITION DIAGONAL----------------/'
+C     /************* GET DIAGONAL ***********/
+      CALL GETVECTEURDIAGONAL(N,M,VECTEUR_MIN,SIZEMAX,
+     P VECTEUR_DIAGONAL)
+C     /************* END GET DIAGONAL ***********/
+
+      DO 10 I=1,(N+1)*(M+1)
+      WRITE(*,*) 'VECTEUR DIAGONAL',VECTEUR_DIAGONAL(I)
+10    CONTINUE
+
+C    /********** GET AIJ FOR EACH TRIANGLE************/
+      K=1
+      DO 7 I=1,2*N*M
+      X(1)= VECTEURX(VECTEUR_TRIANGLE(K))
+      X(2)= VECTEURX(VECTEUR_TRIANGLE(K+1))
+      X(3)= VECTEURX(VECTEUR_TRIANGLE(K+2))
+      Y(1)= VECTEURY(VECTEUR_TRIANGLE(K))
+      Y(2)= VECTEURY(VECTEUR_TRIANGLE(K+1))
+      Y(3)= VECTEURY(VECTEUR_TRIANGLE(K+2))
+
+      WRITE(*,*) 'Noeud n°1 Triangle :  ',VECTEUR_TRIANGLE(K)
+      WRITE(*,*) 'Noeud n°2 Triangle :  ',VECTEUR_TRIANGLE(K+1)
+      WRITE(*,*) 'Noeud n°3 Triangle :  ',VECTEUR_TRIANGLE(K+2)
+      WRITE(*,*) 'COord: ',X(1),X(2),X(3),Y(1),Y(2),Y(3)
+      CALL GETFJ(X,Y,FUNC,FJ)
+      CALL GETAIJ(X,Y,AIJ)
+      
+
+      CALL SECONDMEMBRE(N,M,K,FJ,VECTEUR_TRIANGLE,
+     L VECTEUR_B1,CONDNEWMAN,VECTEUR_SECONDMEMBRE)
+
+      CALL STOCKAGE(N,M,K,SIZEMAX,AIJ,VECTEUR_DIAGONAL,
+     M VECTEUR_TRIANGLE,VECTEUR_STOCKAGE)
+      WRITE(*,*) ' '
+      
+      DO 8 J=1,6
+      WRITE(*,*) 'AIJ DU TRIANGLE ',I,' AIJ ',AIJ(J)
+8     CONTINUE
+      WRITE(*,*) ' '
+      K = K+3
+7     CONTINUE
+C    /********** END GET AIJ ************/
+
+      CALL NEWMANSECONDMEMBRE(N,M,VECTEUR_TRIANGLE,
+     L VECTEUR_B1,CONDNEWMAN,
+     F VECTEURX,VECTEURY,VECTEUR_SECONDMEMBRE)
+
+      WRITE(*,*) ''
+      WRITE(*,*) '/********Newman VECTEUR SECONDMEMBRE :**********/'
+      DO 14 I=1,(N+1)*(M+1)
+      WRITE(*,*) 'VECTEUR SECONDMEMBRE :',I,VECTEUR_SECONDMEMBRE(I)
+14    CONTINUE
+
+      WRITE(*,*) '/************BEFORE DIRICHLET*****************/'
+      DO 11 I=1,SIZEMAX
+      WRITE(*,*) 'AIJ VECTEUR MORSE ',I,' AIJ ',VECTEUR_STOCKAGE(I)
+11    CONTINUE
+
+      CALL DIRICHLETSECONDMEMBRE(N,M,VECTEUR_TRIANGLE,
+     G VECTEUR_B1,TYPEPROB,
+     J VECTEURX,VECTEURY,VECTEUR_SECONDMEMBRE)
+
+C    /********** APPLY DIRICHLET CONDITION *********/   
+      CALL CONDITION_DIRICHLET(N,M,SIZEMAX,VECTEUR_MIN
+     L ,VECTEUR_B1,VECTEUR_DIAGONAL,VECTEUR_SECONDMEMBRE
+     L ,VECTEUR_STOCKAGE,VECTEUR_SECONDA) 
+ 
+      WRITE(*,*) '/************AFTER DIRICHLET*****************/'
+      DO 12 I=1,SIZEMAX
+      WRITE(*,*) 'AIJ VECTEUR MORSE ',I,' AIJ ',VECTEUR_STOCKAGE(I)
+12    CONTINUE
+       DO 13 I=1,(N+1)*(M+1)
+       VECTEUR_SECONDMEMBRE(I) = VECTEUR_SECONDMEMBRE(I)-
+     L VECTEUR_SECONDA(I)
+       WRITE(*,*) 'VECTEUR SECONDMEMBRE:',I,VECTEUR_SECONDMEMBRE(I),
+     L VECTEUR_SECONDA(I)
+13    CONTINUE
+      CALL DIRICHLETSECONDMEMBRE(N,M,VECTEUR_TRIANGLE,
+     G VECTEUR_B1,TYPEPROB,
+     J VECTEURX,VECTEURY,VECTEUR_SECONDMEMBRE)
+
+       DO 15 I=1,(N+1)*(M+1)
+       WRITE(*,*) 'Dirichlet VECTEUR SECONDMEMBRE:',I,
+     L VECTEUR_SECONDMEMBRE(I)
+15    CONTINUE
+
+      CALL CHOLESKY(N,M,SIZEMAX,VECTEUR_DIAGONAL,VECTEUR_MIN,
+     L VECTEUR_STOCKAGE,VECTEURCHOLESKY)
+
+       DO 16 I=1,SIZEMAX
+       WRITE(*,*) 'Cholesky:',I,
+     L VECTEURCHOLESKY(I)
+16    CONTINUE
+
+      CALL RESOLUTION(N,M,SIZEMAX,VECTEUR_MIN,VECTEUR_DIAGONAL,
+     L VECTEURCHOLESKY,VECTEUR_SECONDMEMBRE,VECTEURSOL)
+
+       DO 17 I=1,(N+1)*(M+1)
+       WRITE(*,*) 'SOLUTION:',I,
+     L VECTEURSOL(I)
+17    CONTINUE
+      END
+      

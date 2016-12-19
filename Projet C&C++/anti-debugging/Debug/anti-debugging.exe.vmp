@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Document Version="2">
+    <Protection InputFileName="anti-debugging.exe" Options="786632" OutputFileName="anti-debugging.namexorname.exe">
+        <Messages />
+        <Folders />
+        <Procedures>
+            <Procedure MapAddress="VMProtectMarker1" Options="0" />
+        </Procedures>
+        <Objects />
+    </Protection>
+    <DLLBox>
+        <Folders />
+    </DLLBox>
+    <Script />
+    <LicenseManager />
+</Document>

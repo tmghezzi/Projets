@@ -1,0 +1,16 @@
+Id LienParent FilsGauche/Droite
+1 0 -1 Homme Mammifere
+2 1 1 Chat Felin
+3 1 0 Moineau Oiseau
+4 2 1 Lion Rugit
+5 2 0 Chien Canidé
+6 3 0 Lezard Reptile
+7 6 1 Vipere Serpent 
+8 6 0 Thon Poisson
+9 8 0 pinguin polaire
+10 8 1 Balaine grosse
+11 3 1 aigle BonneVue
+12 9 0 Tigre Inde
+13 12 0 n n
+14 11 0 Pigeon aile
+15 13 0 dfg dg

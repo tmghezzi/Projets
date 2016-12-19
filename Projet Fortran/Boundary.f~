@@ -1,0 +1,19 @@
+      SUBROUTINE GETBOUNDARYNODE(N,M,VECTEUR_BOUNDARY)
+      IMPLICIT NONE
+      INTEGER  I,T,N,M,C,MODULOX
+      REAL     VALEUR,VECTEUR_BOUNDARY(2*(N+1+M+1))
+      T = 1
+      C = (N+1)*M
+      DO 1 I=1,(N+1)*(M+1)
+      MODULOX = MODULO(I,N+1)
+      IF(I.GE.C) THEN
+      VECTEUR_BOUNDARY(T) = I
+      write(*,*) 'Point(',T,')=',I
+      T = T+1
+      ELSE IF(MODULOX.EQ.0.OR.MODULOX.EQ.1) THEN
+      VECTEUR_BOUNDARY(T) = I
+      write(*,*) 'Point(',T,')=',I
+      T = T+1
+      ENDIF
+1     CONTINUE 
+      END

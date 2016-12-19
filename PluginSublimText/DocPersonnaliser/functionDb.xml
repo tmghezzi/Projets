@@ -1,0 +1,11 @@
+<collection shelf="New Arrivals">
+<elementName title="malloc">
+   <element_declaration>malloc(int size, macros memory_type, macros property)</element_declaration>
+   <description>M_TEMP: misc temporary data buffers</description>
+</elementName>
+
+<elementName title="SYSCTL_OUT">
+<element_declaration>int err = SYSCTL_OUT(requete , pointer_buffer, uint size)</element_declaration>
+   <description>return value when sysctl is called</description>
+</elementName>
+</collection>

@@ -1,0 +1,55 @@
+Vous êtes sollicités pour le développement d'une file d'attente 
+d'une pile et d'un carnet d'adresses.
+
+La file d'attente satisfait le principe "premier arrivé premier sorti"
+(FIFO).
+
+La pile met en oeuvre l'algorithme "dernier arrivé premier sorti" (LIFO)
+
+Le carnet d'adresse doit stocker le nom, prenom, adresse, ville
+et code postal d'une personne et de ne pas autoriser les doublons
+(même nom/prénom)
+
+La file d'attente utilisera un Vector pour
+stocker les éléments, la pile une ArrayList et le carnet une TreeMap.
+
+Toutes ces 3 classes doivent avoir un ancêtre commun,
+"MonContainer", proposant une méthode getNombreObjets() 
+capable d'afficher le type du container et le nombre d'objets
+contenus.
+
+La file d'attente doit proposer les méthodes suivantes:
+- ajouter (pour ajouter un objet dans la file)
+- retirer (pour retirer un objet de la file)
+- peek (pour obtenir un objet de la file sans le retirer
+	à une position donnée où à la sortie)//consultation sans supprimer
+- getAttenteMoyenne (qui calcule le temps moyen d'attente 
+	d'un objet dans la file)
+
+La pile doit fournir les méthodes
+- push (pour insérer un objet dans la pile)
+- pop (pour retirer un objet de la pile)
+
+Le carnet d'adresses doit fournir les méthodes
+- insérer (pour insérer un objet à une clé donnée)
+- supprimer (pour supprimer l'objet ayant une clé) donnée
+- get - pour obtenir, au choix, l'adresse ou
+	la ville d'une certaine personne 
+- estPresent (pour savoir si une personne - dont on précise le
+	nom/prenom - est stockée dans le container)
+
+La file d'attente et la pile appartiennent au type ContainerStatistique 
+qui impose les méthodes suivantes
+- getNbMoyenEntreesParSeconde() (capable de retourner le nombre
+  moyen d'objets entrés dans le container par seconde)
+- getNbMoyenSortiesParSeconde(capable de retourner le nombre
+  moyen d'objets sortis du le container par seconde)
+
+Les 3 classes seront livrées avec un programme de test, avec des menus interactifs,
+qui doit mettre en oeuvre toutes ces méthodes et proposer des traitements
+globaux utilisant les méthodes communes.
+
+// insertion espacer thread.sleep(2000);
+// pour le miniprojet qui vous demande d'inséreret de retirerr à des moment différents des objets de la pile et de la file d'attente
+//on utilise la méthode sleep(millisecondes) pour arrêter l'execution 
+// du thread prinicipal

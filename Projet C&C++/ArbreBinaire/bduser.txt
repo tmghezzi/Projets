@@ -1,0 +1,4 @@
+Username Password status score
+admin e10adc3949ba59abbe56e057f20f883e 1 20
+Admin e10adc3949ba59abbe56e057f20f883e 1 100
+tar e10adc3949ba59abbe56e057f20f883e 0 7

@@ -1,0 +1,14 @@
+      SUBROUTINE GETVECTEURMIN(N,M,VECTEUR_MIN)
+      IMPLICIT NONE
+      INTEGER  I,J,T,N,M
+      INTEGER  VECTEUR_MIN((N+1)*(M+1))
+      T=1
+      VECTEUR_MIN(1)=1
+      DO 1 I=2,N+1
+      VECTEUR_MIN(I)=I-1
+1     CONTINUE 
+      DO 2 J=N+2,(N+1)*(M+1)
+      VECTEUR_MIN(J)=T
+      T=T+1
+2     CONTINUE 
+      END

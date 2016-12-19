@@ -1,0 +1,5 @@
+lancer en premier la commande
+gcc -g Exec.c -o Exec -lm
+et ensuite
+Exec
+NE PAS FAIRE DE make

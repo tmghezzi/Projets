@@ -1,0 +1,3 @@
+gcc -c Polynome.c -o Polynome.o
+gcc Test.c Polynome.o Vecteur.o Matrice.o -o Test
+
