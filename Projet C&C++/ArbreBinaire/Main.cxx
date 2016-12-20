@@ -5,31 +5,7 @@
 #include "md5.hxx"
 using namespace std;
 int main(){
-  /* Noeud Noe("Chien","Poil",0,1);
-     Noeud Noe1(Noe);
-     cout<<Noe<<endl;
-     cout<<Noe1<<endl;
-     Noe1.SetNom("hh");
-     cout<<Noe<<endl;
-     cout<<Noe1<<endl;
-     Arbre abr(0,"default.txt");
-     cout<<*abr.Racine()<<endl;
-     cout<<md5("@123456")<<endl;
-     string m5=(string)md5("@123456");
-     string m50=(string)md5("Admin1");
-     if(m50==m5)
-     cout<<"ok"<<endl;
-     Utilisateur user("Admin","@123456");
-     user.Connection();
-     Administrateur admin("admin","@123456");
-     admin.AfficheUtilisateur();
-     if(!admin.CreerUtilisateur("tar","145632",0,3)){
-     cout<<"Création ok";
-     }
-     if(admin.SupprimerUtilisateur("tars")){
-     cout<<"Suppression de tahar ok"<<endl;
-     }
-  */
+
   int MenuUtilisateur(string _user,string _mdp);
 int MenuAdministrateur(string _user,string _mdp);
   int choix[3];
