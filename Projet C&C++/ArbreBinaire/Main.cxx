@@ -4,10 +4,10 @@
 #include "Administrateur.hxx"
 #include "md5.hxx"
 using namespace std;
-int main(){
 
-  int MenuUtilisateur(string _user,string _mdp);
+int MenuUtilisateur(string _user,string _mdp);
 int MenuAdministrateur(string _user,string _mdp);
+int main(){
   int choix[3];
   string username="";
   string mdp="";
@@ -23,19 +23,19 @@ int MenuAdministrateur(string _user,string _mdp);
   cout<<endl;
   switch(choix[0]){
   case 0:
-    cout<<"Veuillez entré votre nom d'utilisateur :"<<endl;
+    cout<<"Veuillez entrer votre nom d'utilisateur :"<<endl;
     cin>>username;
-    cout<<"Veuillez entré votre password : "<<endl;
+    cout<<"Veuillez entrer votre password : "<<endl;
     cin>>mdp; 
     if((mdp!="")&&(username!=""))
       int ret=MenuUtilisateur(username,mdp);
     break;
   case 1:
-    cout<<"Veuillez entré votre nom d'administrateur: "<<endl;
+    cout<<"Veuillez entrer votre nom d'administrateur: "<<endl;
     cin>>username;
-    cout<<"Veuillez entré votre password: "<<endl;
+    cout<<"Veuillez entrer votre password: "<<endl;
     cin>>mdp;
-MenuAdministrateur(username,mdp);
+	MenuAdministrateur(username,mdp);
     break;
  case 2:
     cout<<"A bientôt"<<endl;
