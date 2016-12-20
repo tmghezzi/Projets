@@ -142,7 +142,7 @@ while(res!=1){
       }
  break;
     case 2:
-      cout<<"Veuillez entré son Pseudo : "<<endl;
+      cout<<"Veuillez entrer son Pseudo : "<<endl;
       cin>>tmp;
       Admin.SeekUser(tmp);
 
@@ -151,18 +151,18 @@ while(res!=1){
      Admin.AfficheUtilisateur();
       break;
     case 4:
-      cout<<"Veuillez entré un Pseudo *: "<<endl;
+      cout<<"Veuillez entrer un Pseudo *: "<<endl;
       cin>>username;
-      cout<<"Veuillez entré un Password* : "<<endl;
+      cout<<"Veuillez entrer un Password* : "<<endl;
       cin>>pass;
-      cout<<"Veuillez entré un status : "<<endl;
+      cout<<"Veuillez entrer un status : "<<endl;
       cin>>level;
-      cout<<"Veuillez entré un score par défaut : "<<endl;
+      cout<<"Veuillez entrer un score par défaut : "<<endl;
       cin>>sco;
       Admin.CreerUtilisateur(username,pass,level,sco);
       break;
     case 5:
-      cout<<"Veuillez entré un Pseudo  : "<<endl;
+      cout<<"Veuillez entrer un Pseudo  : "<<endl;
       cin>>tmp;
       if(tmp!="")
 	Admin.SupprimerUtilisateur(tmp);
