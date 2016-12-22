@@ -1,0 +1,9 @@
+Faire
+g++ Exec.cxx -o Exec
+On peut prendre comme fontions test:
+f(x,y)=-2. et g(x,y)=x*x
+La solution du probleme est u(x,y)=x*x
+donc faire
+Exec
+et entrer les fonctions f et g.
+

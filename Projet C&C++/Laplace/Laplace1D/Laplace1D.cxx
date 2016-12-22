@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+#include <math.h>
+
+#include "MatriceBande.hxx"
+#include "Laplace1D.hxx"
+
+
+Laplace1D::Laplace1D(int n, double (*f)(double), double(*g)(double)):MatriceBande(n,1)
+{
+  
+  cout<<"Constructeur"<<endl;
+  N=n;
+  G=g;
+  F=f;
+  Solution=(n);
+}   
+
+
+void Laplace1D::SecondMembre() 
+{ 
+cout<<"----------Second Membre----------"<<endl;
+
+  int i;
+ Solution[0]=G(0.);
+ Solution[N-1]=G(1.);
+  for(i=1;i<N-1;i++){
+   Solution[i]=F((double)i/(N-1));
+} 
+  Solution.Affiche();
+}
+
+
+
+
+void Laplace1D::InitialiseMatrice()//Calcule la matrice
+{ 
+
+cout<<"------------Intinialise Matrice--------------"<<endl;
+
+  int i;
+  double pas=(N-1)*(N-1);
+  (*this)(0,0)=1.;
+  (*this)(0,1=0.;
+  
+  for(i=1;i<N-1;i++){
+    (*this)(i,i-1)=-1.*pas;
+    (*this)(i,i)=2*pas;
+    (*this)(i,i+1)=-1.*pas;
+  }
+
+
+  (*this)(N-1,N-1)=1.;
+  (*this)(N-1,N-2)=0.;
+  (*this).Affiche();
+}
+
+
+void Laplace1D::Calcul()
+{
+  cout<<"Calcul"<<endl;
+  Solution=Resoudre(Solution); 
+  Solution.Affiche();
+}
+ 
+void Laplace1D::CalculErreur(int impre)
+{
+double ErreurMaximal=0.;
+  double ErreurMoyenne=0.;
+  double diff;
+  cout << " Solution Calculee   Solution exacte " << endl;
+  for(int i=0;i<N;i++)
+    {
+      double x=(double)(i)/(N-1);
+      diff= fabs(Solution[i]-G(x));
+      ErreurMoyenne+=diff;
+      if(diff>ErreurMaximal)
+	{
+	  ErreurMaximal=diff;
+
+	}
+      if ( impre == 1 )
+	cout << " "<<Solution[i]<<"   "<<G(x) <<endl;
+    }
+  ErreurMoyenne /= N;
+  cout << " L'erreurMaximal = " << ErreurMaximal << "L'erreurMoyenne = " << ErreurMoyenne << endl;
+}

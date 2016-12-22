@@ -82,7 +82,7 @@ while(res!=1){
       }
  break;
     case 2:
-      cout<<"Veuillez entré son Pseudo : "<<endl;
+      cout<<"Veuillez entrer son Pseudo : "<<endl;
       cin>>tmp;
       User.SeekUser(tmp);
 
