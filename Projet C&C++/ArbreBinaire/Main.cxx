@@ -7,6 +7,7 @@ using namespace std;
 
 int MenuUtilisateur(string _user,string _mdp);
 int MenuAdministrateur(string _user,string _mdp);
+
 int main(){
   int choix[3];
   string username="";
@@ -45,6 +46,7 @@ int main(){
  }
   return 0;
 }
+
 int MenuUtilisateur(string _user,string _mdp){
   int res=0;
   string tmp;
