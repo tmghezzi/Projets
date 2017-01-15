@@ -41,9 +41,8 @@ public class Main {
 		Shell shell = new Shell(display);
 		shell.setSize(900,700);
 		
-		//Créer la barre de menus
+	
 		Menu barreMenu = new Menu(shell,SWT.BAR);
-		//affecter cette barre de menu (ou une autre si le ca se présente) à la fenetre
 		shell.setMenuBar(barreMenu);
 		txt1 = new Text(shell,SWT.MULTI | SWT.WRAP);
 		txt1.setText("");
@@ -116,8 +115,6 @@ public class Main {
 						try {
 							File objNouveauNom = new File(saisie);
 							FileReader fr = new FileReader(objNouveauNom);
-							//Créer sur le lecteur sans tampon un lecteur avec tampon
-							//(capable de stocker tous les caractéres d'eune ligne)
 							BufferedReader lecteurTampon = new BufferedReader(fr);
 							
 							String txt;
@@ -251,7 +248,6 @@ public class Main {
 		
 		//Créer la partie déroulante qui sera attribuée à l'item de menu 'Fichier'
 		Menu dropdown = new Menu(shell,SWT.DROP_DOWN);
-		//arracher ce menu dropdown à l'item 'Fichier'
 		mi.setMenu(dropdown);
 		
 		// créer les différents menu items de ce drop down
@@ -260,9 +256,7 @@ public class Main {
 		item.setID(2);
 		item.addArmListener(armListener);
 		item.addListener(SWT.Selection, listener);
-		
-		//Devoir:Faire le item un nouveau qui ouvre une boite de texte dans un shell et sauvegarder dans un fichier 
-		
+		 
 		
 		item = new MenuItem(dropdown,SWT.PUSH);
 		item.setText("Sauvegarder");
@@ -341,11 +335,11 @@ public class Main {
 			}
 		});
 		
-		//Créer des sous items de 'cascade' avec accélérateurs (combinaison de touches pour lancer l'action/racourci)
+		
 		
 		item = new MenuItem(dropdown2, SWT.PUSH);
-		//le drapeau "&" définit le raccourci sui permet de lancer l'action de l'item 
-		//une fois le dropdown ouvert
+		
+	
 		item.setText("&Action\tCtrl+A");
 		//Définir l'accélérateur pour cet item (la combinaison de touches qui lance l'action du menu sans cliquer dessus)
 		item.setAccelerator(SWT.CTRL + 'A');
@@ -372,7 +366,7 @@ public class Main {
 		});
 		
 		item.addArmListener(armListener);
-		//ajouter aussi un HelpListener sur cet item de menu (pour afficher le help survolé l'item 'Réaction' et appuyer sur F1 )
+		//ajouter aussi un HelpListener sur cet item de menu 
 		item.addHelpListener(new HelpListener() {
 			
 			@Override
